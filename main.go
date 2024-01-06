@@ -1,24 +1,22 @@
 package main
 
 import (
-	"fmt"
-	"goqdrantvectorsearch/pkg/pack"
-	"goqdrantvectorsearch/pkg/qdrantapi"
-	"log"
+	_ "goqdrantvectorsearch/docs"
+	routers "goqdrantvectorsearch/routers"
+
+	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func main() {
-	fmt.Println("Hello, World!")
-	fmt.Println(pack.Hello())
-	var connection = qdrantapi.GetConnection()
-	qdrantapi.DeleteCollection(connection, "test")
-	qdrantapi.CreateCollection(connection, "test", 3)
-	fmt.Println(connection)
-	var pointsClient = qdrantapi.GetPointsClient(connection)
-	qdrantapi.UpsertPoint([]float32{1, 2, 3}, "test", pointsClient)
-	var retrievedPoint = qdrantapi.GetPoints(1, "test", pointsClient)
-	log.Println(retrievedPoint)
-	var searchResult = qdrantapi.Search([]float32{1, -1, 5}, pointsClient, "test")
-	log.Println(searchResult)
+	// New gin router
+	router := gin.New()
 
+	// Register api/v1 endpoints
+	routers.Register(router)
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.NewHandler()))
+
+	// Listen and Server in
+	router.Run()
 }

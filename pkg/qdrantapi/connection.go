@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func GetConnection() *grpc.ClientConn {
+func GetConnection() (*grpc.ClientConn, error) {
 	var (
 		addr = flag.String("addr", "localhost:6334", "the address to connect to")
 	)
@@ -18,7 +18,7 @@ func GetConnection() *grpc.ClientConn {
 		log.Fatalf("did not connect: %v", err)
 	}
 	// defer conn.Close()
-	return conn
+	return conn, err
 }
 
 // func create_conn() {

@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func CreateCollection(conn *grpc.ClientConn, collectionName string, vectorSize uint64) {
+func CreateCollection(conn *grpc.ClientConn, collectionName string, vectorSize uint64) error {
 	collections_client := pb.NewCollectionsClient(conn)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
@@ -32,9 +32,10 @@ func CreateCollection(conn *grpc.ClientConn, collectionName string, vectorSize u
 	} else {
 		log.Println("Collection", collectionName, "created")
 	}
+	return err
 }
 
-func DeleteCollection(conn *grpc.ClientConn, collectionName string) {
+func DeleteCollection(conn *grpc.ClientConn, collectionName string) error {
 	collections_client := pb.NewCollectionsClient(conn)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
@@ -46,4 +47,5 @@ func DeleteCollection(conn *grpc.ClientConn, collectionName string) {
 	} else {
 		log.Println("Collection", collectionName, "deleted")
 	}
+	return err
 }

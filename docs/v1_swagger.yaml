@@ -18,6 +18,15 @@ definitions:
       vectorSize:
         type: integer
     type: object
+  routers.NewVector:
+    properties:
+      collectionName:
+        type: string
+      data:
+        items:
+          type: number
+        type: array
+    type: object
   routers.ToRemoveCollection:
     properties:
       name:
@@ -91,4 +100,24 @@ paths:
         "503":
           description: error
       summary: Creates Qdrant Collection
+  /upsertVector:
+    post:
+      consumes:
+      - application/json
+      description: post string by ID
+      parameters:
+      - description: New vector
+        in: body
+        name: newVector
+        required: true
+        schema:
+          $ref: '#/definitions/routers.NewVector'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+        "503":
+          description: error
+      summary: Upsert vector
 swagger: "2.0"

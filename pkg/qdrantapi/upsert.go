@@ -8,7 +8,7 @@ import (
 	pb "github.com/qdrant/go-client/qdrant"
 )
 
-func UpsertPoint(data []float32, collectionName string, pointsClient pb.PointsClient) {
+func UpsertPoint(data []float32, collectionName string, pointsClient pb.PointsClient) error {
 	points := []*pb.PointStruct{
 		{
 			// Point Id is number or UUID
@@ -36,4 +36,5 @@ func UpsertPoint(data []float32, collectionName string, pointsClient pb.PointsCl
 	} else {
 		log.Println("Upsert", len(points), "points")
 	}
+	return err
 }

@@ -108,6 +108,37 @@ const docTemplatev1 = `{
                     }
                 }
             }
+        },
+        "/upsertVector": {
+            "post": {
+                "description": "post string by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Upsert vector",
+                "parameters": [
+                    {
+                        "description": "New vector",
+                        "name": "newVector",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/routers.NewVector"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "503": {
+                        "description": "error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -136,6 +167,20 @@ const docTemplatev1 = `{
                 },
                 "vectorSize": {
                     "type": "integer"
+                }
+            }
+        },
+        "routers.NewVector": {
+            "type": "object",
+            "properties": {
+                "collectionName": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
                 }
             }
         },

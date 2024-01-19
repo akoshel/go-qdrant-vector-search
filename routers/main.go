@@ -24,4 +24,5 @@ func Register(router *gin.Engine) {
 	v1.GET("/books", GetBooks)
 	v1.POST("/createCollection", CreateCollection)
 	v1.POST("/removeCollection", RemoveCollection)
+	v1.POST("/upsertVector", UpsertVector)
 }
